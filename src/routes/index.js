@@ -3,9 +3,6 @@ const router = express.Router();
 const userController = require('../controllers/userController');
 const mentorController = require('../controllers/mentorController');
 module.exports = () => {
-    router.get('/', (req, res) => {
-        res.send('Hello World');
-    });
     router.get('/users/', userController.getUsers);
     router.get('/user/:id', userController.getOneUser);
     router.post('/user/', userController.saveUser);

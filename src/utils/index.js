@@ -15,7 +15,7 @@ exports.mentorAssignment = async(techStack) => {
     try {
         const response = await MentorService.getMentorByTech(techStack)
         const filtrado = response.filter(x => x.user.length < 30)
-        if(filtrado.length == 0){
+        if (filtrado.length == 0) {
             throw new Error("Mentores techStack sin capacidad/no existe el stack")
         }
         let indiceMentor = mentorChoise(filtrado)
