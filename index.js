@@ -8,7 +8,7 @@ app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 app.use('/api/', routes());
 
-mongoose.connect('mongodb+srv://agus:<puzzle123>@cluster0.i7cpz.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', { useFindAndModify: false, useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true }, (err, res) => {
+mongoose.connect('mongodb+srv://puzzle:<puzzle123>@cluster0.i7cpz.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', { useFindAndModify: false, useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true }, (err, res) => {
     if (err) throw err
     console.log('Conexion a la base de datos establecida...')
 
