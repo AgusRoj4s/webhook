@@ -1,3 +1,4 @@
+const { response } = require('express');
 const MentorService = require('../services/mentorService');
 
 getRandomInt = (min, max) => {
@@ -7,21 +8,18 @@ getRandomInt = (min, max) => {
 
 mentorChoise = (mentorArray) => {
     let indice = getRandomInt(0, mentorArray.length);
-    if (mentorArray[indice].user.length < 30) {
-        return indice
-    } else {
-        return false;
-    }
+    return indice;
 };
 
 exports.mentorAssignment = async(techStack) => {
     try {
         const response = await MentorService.getMentorByTech(techStack)
-        let indiceMentor = mentorChoise(response)
-        if (!indiceMentor) {
-            indiceMentor = mentorChoise(response)
+        const filtrado = response.filter(x => x.user.length < 30)
+        if(filtrado.length == 0){
+            throw new Error("Mentores techStack sin capacidad/no existe el stack")
         }
-        return response[indiceMentor]
+        let indiceMentor = mentorChoise(filtrado)
+        return filtrado[indiceMentor]
     } catch (error) {
         console.log(error)
         throw new Error(error.message)

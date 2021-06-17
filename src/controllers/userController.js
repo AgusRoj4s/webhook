@@ -12,8 +12,8 @@ exports.getUsers = async(req, res) => {
 
 exports.saveUser = async(req, res) => {
     try {
-        const response = await UserService.saveUser(req.body.slackUserId, req.body.techStack, req.body.email)
-        return res.status(200).json({ ok: true, result: response })
+        const response = await UserService.saveUser(req.body.slackUserId, req.body.techStack, req.body.email)       
+        return res.status(200).json({ ok: true, result: { mentorName: response.mentorName, groupId: response.groupId, email: response.email }})
     } catch (error) {
         return res.status(500).json({ ok: false, error: error.message });
     }
