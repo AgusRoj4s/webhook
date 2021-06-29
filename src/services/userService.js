@@ -17,13 +17,10 @@ exports.saveUser = async(slackId, stack, userEmail) => {
     try {
         let mentor = await funciones.mentorAssignment(stack)
         let user = await new User({ slackUserId: slackId, techStack: stack, groupId: mentor.groupId, email: userEmail, mentorName: mentor.name })
-        user.save()
-        Mentor.findByIdAndUpdate(mentor._id, { $push: { 'user': user } }, (err, result) => {
-            if (err) {
-                throw new Error(err)
-            }
-        });
-        return user
+        await user.save()
+        await Mentor.findByIdAndUpdate(mentor._id, { $push: { 'user': user } });
+        const response = { mentorName: user.mentorName, groupId: user.groupId, email: user.email }
+        return response;
     } catch (error) {
         console.log(error)
         throw new Error(error.message)
