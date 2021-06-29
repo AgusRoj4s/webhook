@@ -20,7 +20,7 @@ exports.saveUser = async(slackId, stack, userEmail) => {
         let user = await new User({ slackUserId: slackId, techStack: stack, groupId: mentor.groupId, email: userEmail, mentorName: mentor.name })
         await user.save()
         await Mentor.findByIdAndUpdate(mentor._id, { $push: { 'user': user } });
-        const response = { mentorName: user.mentorName, groupId: user.groupId, email: user.email }
+        const response = { mentorName: user.mentorName, groupId: user.groupId, email: user.email, slackUserId: user.slackId, techStack: user.techStack }
         axios({
             method: 'POST',
             url: 'https://hooks.zapier.com/hooks/catch/8332339/boj133r/',
