@@ -4,6 +4,7 @@ const Schema = mongoose.Schema
 
 const MentorSchema = Schema({
     name: String,
+    idMentorUserSlack: String,
     techStack: String,
     email: String,
     groupId: String,

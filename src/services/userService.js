@@ -17,10 +17,10 @@ exports.getAllUsers = async() => {
 exports.saveUser = async(slackId, stack, userEmail) => {
     try {
         let mentor = await funciones.mentorAssignment(stack)
-        let user = await new User({ slackUserId: slackId, techStack: stack, groupId: mentor.groupId, email: userEmail, mentorName: mentor.name })
+        let user = await new User({ slackUserId: slackId, techStack: stack, groupId: mentor.groupId, email: userEmail, mentorName: mentor.name, mentorEmail: mentor.email })
         await user.save()
         await Mentor.findByIdAndUpdate(mentor._id, { $push: { 'user': user } });
-        const response = { mentorName: user.mentorName, mentorEmail: mentor.email, groupId: user.groupId, email: user.email, slackUserId: user.slackUserId, techStack: user.techStack }
+        const response = { mentorName: user.mentorName, mentorEmail: mentor.email, idMentorUserSlack: mentor.idMentorUserSlack, groupId: user.groupId, techStack: user.techStack, userEmail: user.email, slackUserId: user.slackUserId }
         axios({
             method: 'POST',
             url: 'https://hooks.zapier.com/hooks/catch/8332339/boj133r/',

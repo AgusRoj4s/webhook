@@ -6,7 +6,8 @@ const UserSchema = Schema({
     techStack: String,
     groupId: String,
     email: String,
-    mentorName: String
+    mentorName: String,
+    mentorEmail: String
 })
 
 module.exports = mongoose.model('User', UserSchema)

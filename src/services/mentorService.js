@@ -22,9 +22,9 @@ exports.getOneMentor = async(id) => {
     }
 };
 
-exports.saveMentor = async(gId, stack, mentorName, mentorEmail) => {
+exports.saveMentor = async(gId, stack, mentorName, mentorEmail, slackId) => {
     try {
-        let mentor = new Mentor({ groupId: gId, techStack: stack, name: mentorName, email: mentorEmail })
+        let mentor = new Mentor({ groupId: gId, techStack: stack, name: mentorName, email: mentorEmail, idMentorUserSlack: slackId })
         mentor.save()
         return mentor
     } catch (error) {
