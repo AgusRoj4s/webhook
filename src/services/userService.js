@@ -2,6 +2,7 @@ const { response } = require('express');
 const funciones = require('../utils/index');
 const User = require('../models/User');
 const Mentor = require('../models/Mentor');
+const axios = require('axios').default;
 
 exports.getAllUsers = async() => {
     try {
@@ -20,6 +21,11 @@ exports.saveUser = async(slackId, stack, userEmail) => {
         await user.save()
         await Mentor.findByIdAndUpdate(mentor._id, { $push: { 'user': user } });
         const response = { mentorName: user.mentorName, groupId: user.groupId, email: user.email }
+        axios({
+            method: 'POST',
+            url: 'https://hooks.zapier.com/hooks/catch/8332339/boj133r/',
+            data: response
+        }).then(res => console.log(res.data));
         return response;
     } catch (error) {
         console.log(error)
