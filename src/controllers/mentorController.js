@@ -37,7 +37,7 @@ exports.getMentorByGroup = async(req, res) => {
 
 exports.saveMentor = async(req, res) => {
     try {
-        const response = await MentorService.saveMentor(req.body.groupId, req.body.techStack, req.body.name);
+        const response = await MentorService.saveMentor(req.body.groupId, req.body.techStack, req.body.name, req.body.email);
         return res.status(200).json({ ok: true, result: response });
     } catch (error) {
         return res.status(404).json({ ok: false, error: error.message });

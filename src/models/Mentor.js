@@ -5,6 +5,7 @@ const Schema = mongoose.Schema
 const MentorSchema = Schema({
     name: String,
     techStack: String,
+    email: String,
     groupId: String,
     user: [{
         type: Schema.Types.ObjectId,

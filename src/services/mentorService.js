@@ -22,9 +22,9 @@ exports.getOneMentor = async(id) => {
     }
 };
 
-exports.saveMentor = async(gId, stack, mentorName) => {
+exports.saveMentor = async(gId, stack, mentorName, mentorEmail) => {
     try {
-        let mentor = new Mentor({ groupId: gId, techStack: stack, name: mentorName })
+        let mentor = new Mentor({ groupId: gId, techStack: stack, name: mentorName, email: mentorEmail })
         mentor.save()
         return mentor
     } catch (error) {
@@ -35,12 +35,12 @@ exports.saveMentor = async(gId, stack, mentorName) => {
 
 exports.getMentorByTech = async(tech) => {
     try {
-        if(tech == "Fullstack"){
+        if (tech == "Fullstack") {
             let array = await Mentor.find()
             let filtrado = array.filter(x => x.techStack == "Backend" || x.techStack == "Frontend")
             console.log(filtrado)
             return filtrado
-        }else{
+        } else {
             let response = await Mentor.find({ techStack: tech })
             return response;
         }
