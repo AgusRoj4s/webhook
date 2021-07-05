@@ -35,15 +35,8 @@ exports.saveMentor = async(gId, stack, mentorName, mentorEmail, slackId) => {
 
 exports.getMentorByTech = async(tech) => {
     try {
-        if (tech == "Fullstack") {
-            let array = await Mentor.find()
-            let filtrado = array.filter(x => x.techStack == "Backend" || x.techStack == "Frontend")
-            console.log(filtrado)
-            return filtrado
-        } else {
-            let response = await Mentor.find({ techStack: tech })
-            return response;
-        }
+        let response = await Mentor.find({ techStack: tech })
+        return response;
     } catch (error) {
         console.log(error);
         throw new Error(error.message);
