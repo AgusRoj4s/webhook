@@ -20,6 +20,7 @@ exports.saveUser = async(slackId, stack, userEmail) => {
         let user = await new User({ slackUserId: slackId, techStack: stack, groupId: mentor.groupId, email: userEmail, mentorName: mentor.name, mentorEmail: mentor.email })
         await user.save()
         await Mentor.findByIdAndUpdate(mentor._id, { $push: { 'user': user } });
+        console.log(mentor.email)
         const response = { mentorName: user.mentorName, mentorEmail: mentor.email, idMentorUserSlack: mentor.idMentorUserSlack, groupId: user.groupId, techStack: user.techStack, userEmail: user.email, slackUserId: user.slackUserId }
         axios({
             method: 'POST',
