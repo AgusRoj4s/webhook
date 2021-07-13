@@ -9,7 +9,7 @@ exports.getMentors = async(req, res) => {
 };
 exports.getOneMentor = async(req, res) => {
     try {
-        const response = await MentorService.getOneMentor(req.params.id);
+        const response = await MentorService.getOneMentor(req.params.groupId);
         return res.status(200).json({ ok: true, result: response });
     } catch (error) {
         return res.status(404).json({ ok: false, error: error.message });
@@ -26,20 +26,19 @@ exports.getMentorsByTech = async(req, res) => {
     }
 };
 
-exports.getMentorByGroup = async(req, res) => {
-    try {
-        const response = await MentorService.getMentorByGroup(req.params.groupId);
-        return res.status(200).json({ ok: true, result: response });
-    } catch (error) {
-        return res.status(404).json({ ok: false, error: error.message });
-    }
-};
-
 exports.saveMentor = async(req, res) => {
     try {
         const response = await MentorService.saveMentor(req.body.groupId, req.body.techStack, req.body.name, req.body.email, req.body.idMentorUserSlack);
         return res.status(200).json({ ok: true, result: response });
     } catch (error) {
-        return res.status(404).json({ ok: false, error: error.message });
+        return res.status(500).json({ ok: false, error: error.message });
+    }
+};
+exports.deleteMentor = async(req, res) => {
+    try {
+        const response = await MentorService.deleteMentor(req.params.groupId);
+        return res.status(200).json({ ok: true, result: response });
+    } catch (error) {
+        return res.status(500).json({ ok: false, error: error.message });
     }
 };

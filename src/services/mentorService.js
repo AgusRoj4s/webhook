@@ -11,9 +11,9 @@ exports.getAllMentors = async() => {
     }
 };
 
-exports.getOneMentor = async(id) => {
+exports.getOneMentor = async(gId) => {
     try {
-        const response = await Mentor.findById(id)
+        const response = await Mentor.findOne({ groupId: gId })
             .populate('user')
         return response;
     } catch (error) {
@@ -42,12 +42,19 @@ exports.getMentorByTech = async(tech) => {
         throw new Error(error.message);
     }
 };
-exports.getMentorByGroup = async(group) => {
+
+exports.deleteMentor = async(group) => {
     try {
-        const response = await Mentor.find({ groupId: group })
-        return response;
+        const mentor = await Mentor.findOne({ groupId: group });
+        if (!mentor) {
+            return { response: 'mentor not found!' };
+        }
+        await mentor.remove();
+        return {
+            response: 'mentor deleted'
+        };
     } catch (error) {
-        console.log(error);
-        throw new Error(error.message);
+        console.log(error)
+        throw new Error(error.message)
     }
 };

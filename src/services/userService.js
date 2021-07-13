@@ -34,10 +34,30 @@ exports.saveUser = async(slackId, stack, userEmail) => {
     }
 };
 
-exports.getOneUser = async(id) => {
+exports.getOneUser = async(slackId) => {
     try {
-        const response = await User.findById(id)
-        return response
+        const user = await User.findOne({ slackUserId: slackId })
+        console.log(user)
+        if (!user) {
+            return { response: 'user not found!' };
+        }
+        return user
+    } catch (error) {
+        console.log(error)
+        throw new Error(error.message)
+    }
+};
+
+exports.deleteUser = async(slackId) => {
+    try {
+        const user = await User.findOne({ slackUserId: slackId })
+        if (!user) {
+            return { response: 'user not found!' };
+        }
+        await user.remove();
+        return {
+            response: 'user deleted'
+        };
     } catch (error) {
         console.log(error)
         throw new Error(error.message)
